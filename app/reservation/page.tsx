@@ -1,12 +1,14 @@
+import Link from "next/link";
+
 export default function Page() {
   return (
     <div className="flex flex-col">
       <div className="flex flex-col justify-center mt-6 ml-6 text-xl font-bold">
-        <p>믿을만한 업체 선정부터</p>
-        <p>수리 의뢰와 예약까지</p>
-        <p>
+        <h1>믿을만한 업체 선정부터</h1>
+        <h1>컴퓨터 수리 예약까지</h1>
+        <h1>
           <span className="text-highlight">한 번에</span> 도와드릴게요 🚀
-        </p>
+        </h1>
       </div>
       <div className="flex flex-col mt-20">
         <div className="flex flex-row justify-between my-4">
@@ -29,9 +31,12 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="fixed left-0 right-0 bottom-0 flex justify-center items-center rounded-xl text-white bg-highlight text-lg font-bold h-14 mx-3 mb-3">
+      <Link 
+        className="fixed left-0 right-0 bottom-0 flex justify-center items-center rounded-xl text-white bg-highlight text-lg font-bold h-14 mx-3 mb-3"
+        href="/reservation/step1"
+      >
         수리 의뢰하기
-      </div>
+      </Link>
     </div>
   );
 }
