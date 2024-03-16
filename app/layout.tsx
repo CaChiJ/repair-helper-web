@@ -1,5 +1,6 @@
 import "@/app/globals.css";
 import { notoSansKR } from "./ui/fonts";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata = {
   title: "Next.js",
@@ -13,7 +14,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={notoSansKR.className}>{children}</body>
+      <body className={notoSansKR.className}>
+        {children}
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
