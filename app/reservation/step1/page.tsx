@@ -59,7 +59,10 @@ export default function Page() {
 
       <Link
         className={`fixed left-0 right-0 bottom-0 flex justify-center items-center rounded-xl ${ isFilled ? 'text-white' : 'text-black' } ${ isFilled ? 'bg-highlight' : 'bg-[#D9D9D9]' } text-lg font-bold h-14 mx-3 mb-3 shadow transition`}
-        href={`${isFilled ? '/reservation/step2' : ''}`}
+        href={{
+          pathname: `${isFilled ? '/reservation/step2' : ''}`,
+          query: {isPowered: isPowered, isBooted: isBooted}
+        }}
       >
         작성 완료
       </Link>
