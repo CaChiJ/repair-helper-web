@@ -17,7 +17,7 @@ export default async function MechanicList({
 
   return (
     <div className="flex flex-col gap-3">
-      {(mechanics ?? []).map((value: Mechanic) => {
+      {(mechanics ?? []).map((value: Mechanic, index: number) => {
         const newRef: any = { ...href };
 
         if (newRef.query !== null && typeof newRef.query === "object") {
@@ -28,6 +28,7 @@ export default async function MechanicList({
 
         return (
           <MechanicItem
+            key={index}
             name={value.name}
             address={value.address}
             rating={value.rating / 20}
