@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 import { notoSansKR } from "./ui/fonts";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { cn } from "@/lib/utils";
 
 export const metadata = {
   title: "Next.js",

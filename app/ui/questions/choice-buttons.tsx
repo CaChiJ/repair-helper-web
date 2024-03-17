@@ -12,6 +12,8 @@ export default function ChoiceButtons({
 }: {
   buttonInfos: ButtonInfo[];
 }) {
+  const wrap = false;
+  const grow = true;
   const [ toggledIdx, setToggledIdx ] = useState<null | number>(null);
 
   const buttons: React.ReactElement[] = [];
@@ -31,7 +33,8 @@ export default function ChoiceButtons({
 
     buttons.push(
       <div
-        className={`flex justify-center rounded items-center grow h-full basis-0 bg-${bgColor} text-${textColor} shadow transition font-medium text-sm`}
+        key={i}
+        className={`flex justify-center rounded items-center ${grow ? 'grow' : ''} h-full basis-0 bg-${bgColor} text-${textColor} shadow transition font-medium text-sm}`}
         onClick={() => {
           if (toggledIdx === i) {
             info.onToggled(false);
@@ -47,7 +50,7 @@ export default function ChoiceButtons({
     );
   }
 
-  return <div className="flex w-full h-full gap-4 items-center">{buttons}</div>;
+  return <div className={`flex ${ wrap ? 'flex-wrap' : '' } w-full h-full gap-4 items-center`}>{buttons}</div>;
 }
 
 export interface ButtonInfo {
