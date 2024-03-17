@@ -60,9 +60,9 @@ export default function TimePicker({
       <span className="w-5"/>
       
       <div className="flex flex-row w-24 h-12 rounded-sm bg-distinct" >
-        <Image onClick={(e) => {addMinute(-1)}} src={backArrow} alt="back" className="flex h-12 w-8 pl-3 "/>
+        <Image onClick={(e) => {addMinute(-10)}} src={backArrow} alt="back" className="flex h-12 w-8 pl-3 "/>
         <span className="flex justify-center items-center w-full h-full rounded-sm bg-transparent">{minute}</span>
-        <Image onClick={(e) => {addMinute(+1)}} src={forwardArrow} alt="forward" className="h-12 w-8 px-1.5" />
+        <Image onClick={(e) => {addMinute(+10)}} src={forwardArrow} alt="forward" className="h-12 w-8 px-1.5" />
       </div>
       <span className="ml-1">분</span>
     </div>
