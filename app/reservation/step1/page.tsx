@@ -33,9 +33,9 @@ export default function Page() {
         <div className="mt-3 h-12">
           <ChoiceButtons
             buttonInfos={[
-              makeButtonInfo("네", divergeCallback(() => setIsPowered('Y'), () => setIsPowered(null))),
-              makeButtonInfo("아니요", divergeCallback(() => setIsPowered('N'), () => setIsPowered(null))),
-              makeButtonInfo("모르겠어요", divergeCallback(() => setIsPowered('O'), () => setIsPowered(null))),
+              makeButtonInfo("네", divergeCallback(() => setIsPowered('true'), () => setIsPowered(null))),
+              makeButtonInfo("아니요", divergeCallback(() => setIsPowered('false'), () => setIsPowered(null))),
+              makeButtonInfo("모르겠어요", divergeCallback(() => setIsPowered('unknown'), () => setIsPowered(null))),
             ]}
           />
         </div>
@@ -49,9 +49,9 @@ export default function Page() {
         <div className="mt-3 h-12">
           <ChoiceButtons
             buttonInfos={[
-              makeButtonInfo("네", divergeCallback(() => setIsBooted('Y'), () => setIsBooted(null))),
-              makeButtonInfo("아니요", divergeCallback(() => setIsBooted('N'), () => setIsBooted(null))),
-              makeButtonInfo("모르겠어요", divergeCallback(() => setIsBooted('O'), () => setIsBooted(null))),
+              makeButtonInfo("네", divergeCallback(() => setIsBooted('true'), () => setIsBooted(null))),
+              makeButtonInfo("아니요", divergeCallback(() => setIsBooted('false'), () => setIsBooted(null))),
+              makeButtonInfo("모르겠어요", divergeCallback(() => setIsBooted('unknown'), () => setIsBooted(null))),
             ]}
           />
         </div>

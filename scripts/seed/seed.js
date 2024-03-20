@@ -1,5 +1,5 @@
 const { db } = require("@vercel/postgres");
-const { users, mechanics } = require("./placeholder-data.js");
+const { users, mechanics, repairRequests } = require("./placeholder-data.js");
 
 async function seedUsers(client) {
   try {
@@ -80,11 +80,57 @@ async function seedMechanics(client) {
   }
 }
 
+async function seedRepairRequest(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    
+    console.log("start");
+    const createTable = await client.sql`
+            CREATE TABLE IF NOT EXISTS repair_requests (
+                id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                phone VARCHAR(255) NOT NULL,
+                address VARCHAR(255) NOT NULL,
+                mechanic_id VARCHAR(255) NOT NULL,
+                is_on_site boolean NOT NULL,
+                is_agreed boolean NOT NULL,
+                reservation_date timestamp NOT NULL,
+                created_at timestamp NOT NULL DEFAULT NOW(),
+                is_booted boolean,
+                is_powered boolean
+            );
+        `;
+
+    console.log(`Created "repair_requests" table`);
+
+    const insertedRepairRequests = await Promise.all(
+      repairRequests.map(async (r) => {
+        return client.sql`
+                    INSERT INTO repair_requests (id, name, phone, address, mechanic_id, is_on_site, is_agreed, reservation_date, is_booted, is_powered)
+                    VALUES (${r.id}, ${r.name}, ${r.phone}, ${r.address}, ${r.mechanic_id}, ${r.is_on_site}, ${r.is_agreed}, ${r.reservation_date}, ${r.is_booted}, ${r.is_powered})
+                    ON CONFLICT (id) DO NOTHING;
+                `;
+      })
+    );
+
+    console.log(`Seeded ${insertedRepairRequests.length} repair requests`);
+
+    return {
+        createTable,
+        repairRequests: insertedRepairRequests,
+    };
+  } catch (error) {
+    console.error("Error seeding repairRequests:", error);
+    throw error;
+  }
+}
+
 async function main() {
   const client = await db.connect();
 
   await seedUsers(client);
   await seedMechanics(client);
+  await seedRepairRequest(client);
 
   await client.end();
 }

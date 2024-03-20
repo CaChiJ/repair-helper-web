@@ -30,7 +30,23 @@ const mechanics = [
     }
 ];
 
+const repairRequests = [
+    {
+        id: '410544b6-4001-4271-9855-fec4b6a6442a',
+        name: '최현준',
+        phone: '01028427239',
+        address: '대전 유성구 자운로 99 209호',
+        mechanic_id: '410564b2-4001-4271-9855-fec4b6a6442a',
+        is_on_site: true,
+        is_agreed: true,
+        reservation_date: '2024-04-22 20:00:00',
+        is_booted: true,
+        is_powered: true
+    }
+]
+
 module.exports = {
     users,
-    mechanics
+    mechanics,
+    repairRequests
 };
