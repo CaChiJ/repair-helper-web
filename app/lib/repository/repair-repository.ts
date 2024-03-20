@@ -1,5 +1,6 @@
 export interface RepairRepository {
-    addRepairRequest(repairRequestData: RepairRequestData): Promise<String>
+    addRepairRequest(repairRequestData: RepairRequestData): Promise<String>;
+    getRepairRequestOrNull(id: string): Promise<RepairRequest | null>;
 }
 
 export type RepairRequest = {
