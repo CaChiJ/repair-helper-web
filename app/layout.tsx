@@ -1,7 +1,7 @@
 import "@/app/globals.css";
 import { notoSansKR } from "./ui/fonts";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata = {
   title: "컴퓨터 수리를 더 안전하게!",
@@ -21,6 +21,7 @@ export default function RootLayout({
       <body className={notoSansKR.className}>
         {children}
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
