@@ -1,5 +1,5 @@
 const { db } = require("@vercel/postgres");
-const { users, mechanics, repairRequests } = require("./placeholder-data.js");
+const { users, mechanics, repairRequests, bills } = require("./placeholder-data.js");
 
 async function seedUsers(client) {
   try {
@@ -125,12 +125,54 @@ async function seedRepairRequest(client) {
   }
 }
 
+async function seedBills(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    
+    console.log("start");
+
+    const createTable = await client.sql`
+            CREATE TABLE IF NOT EXISTS bills (
+                id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+                created_at timestamp NOT NULL DEFAULT NOW(),
+                repair_request_id VARCHAR(255) NOT NULL,
+                image_url VARCHAR(255) NOT NULL,
+                is_agreed BOOLEAN,
+                price INTEGER NOT NULL
+            );
+        `;
+
+    console.log(`Created "bills" table`);
+
+    const insertedBills = await Promise.all(
+      bills.map(async (b) => {
+        return client.sql`
+                    INSERT INTO bills (id, repair_request_id, image_url, is_agreed, price)
+                    VALUES (${b.id}, ${b.repair_request_id}, ${b.image_url}, ${b.is_agreed}, ${b.price})
+                    ON CONFLICT (id) DO NOTHING;
+                `;
+      })
+    );
+
+    console.log(`Seeded ${insertedBills.length} bills`);
+
+    return {
+        createTable,
+        bills: insertedBills,
+    };
+  } catch (error) {
+    console.error("Error seeding bills:", error);
+    throw error;
+  }
+}
+
 async function main() {
   const client = await db.connect();
 
-  await seedUsers(client);
-  await seedMechanics(client);
-  await seedRepairRequest(client);
+  // await seedUsers(client);
+  // await seedMechanics(client);
+  // await seedRepairRequest(client);
+  await seedBills(client);
 
   await client.end();
 }

@@ -2,7 +2,7 @@ async function main() {
   const jwt = require('jsonwebtoken');
 
   const payload = {
-    requestId: "7ab3efa7-2218-4e67-b41f-78d2ae7f8d45",
+    requestId: "6f2c2259-16ee-457c-86e3-dceba5530ee4",
   };
 
   const token = await jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });

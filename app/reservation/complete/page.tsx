@@ -24,24 +24,29 @@ export default function Page({
     params.isBooted !== undefined &&
     params.isPowered !== undefined;
 
-  if (isFilled) {
-    try {
-      const request: RepairRequestData = {
-        name: params.name!,
-        phone: params.phone!,
-        address: params.address!,
-        mechanic_id: params.mechanicId!,
-        is_on_site: params.isOnSite! === "true",
-        is_agreed: params.isAgreed! === "true",
-        reservation_date: params.dateTime!,
-        is_booted: parseBooleanOrNull(params.isBooted!),
-        is_powered: parseBooleanOrNull(params.isPowered!),
-      };
+  if (!isFilled) {
+    return <div>잘못된 접근입니다.</div>;
+  }
+  
+  try {
+    const request: RepairRequestData = {
+      name: params.name!,
+      phone: params.phone!,
+      address: params.address!,
+      mechanic_id: params.mechanicId!,
+      is_on_site: params.isOnSite! === "true",
+      is_agreed: params.isAgreed! === "true",
+      reservation_date: params.dateTime!,
+      is_booted: parseBooleanOrNull(params.isBooted!),
+      is_powered: parseBooleanOrNull(params.isPowered!),
+    };
 
-      repairRepository.addRepairRequest(request);
-    } catch (error) {
-      console.log(error);
-    }
+    (async () => {
+      const result = await repairRepository.addRepairRequest(request);
+      console.log(result);
+    })();
+  } catch (error) {
+    console.log(error);
   }
 
   return (

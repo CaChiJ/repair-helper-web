@@ -45,8 +45,19 @@ const repairRequests = [
     }
 ]
 
+const bills = [
+    {
+        id: '410564b2-7239-4271-9855-fec4b6a6442a',
+        repair_request_id: '410544b6-4001-4271-9855-fec4b6a6442a',
+        image_url: 'naver.com',
+        is_agreed: null,
+        price: 130000,
+    }
+]
+
 module.exports = {
     users,
     mechanics,
-    repairRequests
+    repairRequests,
+    bills
 };
