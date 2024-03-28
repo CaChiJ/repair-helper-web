@@ -2,9 +2,7 @@ import {
   Mechanic,
   MechanicRepository,
 } from "@/app/lib/repository/mechanic-repository";
-import MechanicRepositoryImpl from "@/app/lib/repository/mechanic-repository-impl";
 import MechanicItem from "./mechanic-item";
-import { UrlObject } from "url";
 
 export default async function MechanicList({
   mechanicRepository,
@@ -14,6 +12,7 @@ export default async function MechanicList({
   href?: object
 }) {
   const mechanics: Mechanic[] = await mechanicRepository.getMechanics();
+  console.log(mechanics);
 
   return (
     <div className="flex flex-col gap-3">
@@ -31,6 +30,8 @@ export default async function MechanicList({
             key={index}
             name={value.name}
             address={value.address}
+            repairCount={value.repairCount ?? 0}
+            yearOfCareer={value.yearOfCareer ?? 1}
             rating={value.rating / 20}
             reliability={value.reliability.toString()}
             href={{ ...href }}

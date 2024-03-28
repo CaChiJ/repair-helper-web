@@ -10,7 +10,9 @@ const mechanics = [
     {
         id: '410564b2-4001-4271-9855-fec4b6a6442a',
         name: '자운 컴퓨터 수리',
-        address: '대전 유성구 자운로 99',
+        address: '대전 유성구 자운로 103',
+        repair_count: 684,
+        year_of_career: 8,
         reliability: 'safe',
         rating: 86
     },
@@ -18,6 +20,8 @@ const mechanics = [
         id: '410544c2-4001-4271-9855-fec4b6a6442a',
         name: '오렌지 컴퓨터',
         address: '대전 유성구 온천로 143',
+        repair_count: 142,
+        year_of_career: 2,
         reliability: 'safe',
         rating: 62
     },
@@ -25,6 +29,8 @@ const mechanics = [
         id: '410544b3-4001-4271-9855-fec4b6a6442a',
         name: '컴퓨터 수리 전문점',
         address: '대전 서구 둔산중로78번길 34',
+        repair_count: 243,
+        year_of_career: 4,
         reliability: 'suspected',
         rating: 58
     }

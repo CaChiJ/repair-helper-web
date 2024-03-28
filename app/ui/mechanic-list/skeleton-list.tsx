@@ -3,7 +3,7 @@ export default async function SkeletonList({ amount = 3 }: { amount: number }) {
 
   for (let i = 0; i < amount; ++i) {
     skeletons.push(
-      <div className="mx-5 h-[4.1rem] shadow rounded-lg py-[6px] px-[10px] bg-[#D9D9D9]"> </div>
+      <div className="mx-5 h-[6rem] shadow rounded-lg py-[6px] px-[10px] bg-[#D9D9D9]"> </div>
     );
   }
 

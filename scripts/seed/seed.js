@@ -51,6 +51,8 @@ async function seedMechanics(client) {
                 id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
                 address VARCHAR(255) NOT NULL,
+                repair_count INTEGER NOT NULL DEFAULT 0,
+                year_of_career INTEGER NOT NULL,
                 reliability reliability NOT NULL,
                 rating SMALLINT NOT NULL
             );
@@ -61,8 +63,8 @@ async function seedMechanics(client) {
     const insertedMechanics = await Promise.all(
       mechanics.map(async (mechanic) => {
         return client.sql`
-                    INSERT INTO mechanics (id, name, address, reliability, rating)
-                    VALUES (${mechanic.id}, ${mechanic.name}, ${mechanic.address}, ${mechanic.reliability}, ${mechanic.rating})
+                    INSERT INTO mechanics (id, name, address, repair_count, year_of_career, reliability, rating)
+                    VALUES (${mechanic.id}, ${mechanic.name}, ${mechanic.address}, ${mechanic.repair_count}, ${mechanic.year_of_career}, ${mechanic.reliability}, ${mechanic.rating})
                     ON CONFLICT (id) DO NOTHING;
                 `;
       })
@@ -170,9 +172,9 @@ async function main() {
   const client = await db.connect();
 
   // await seedUsers(client);
-  // await seedMechanics(client);
+  await seedMechanics(client);
   // await seedRepairRequest(client);
-  await seedBills(client);
+  // await seedBills(client);
 
   await client.end();
 }
