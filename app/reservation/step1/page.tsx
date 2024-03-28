@@ -9,8 +9,10 @@ import { useState } from "react";
 export default function Page() {
   const [ isPowered, setIsPowered ] = useState<null | string>(null);
   const [ isBooted, setIsBooted ] = useState<null | string>(null);
+  const [ deviceType, setDeviceType ] = useState<null | string>(null);
+  const [ osType, setOsType] = useState<null | string>(null);
 
-  const isFilled = isPowered !== null && isBooted !== null;
+  const isFilled = isPowered !== null && isBooted !== null && deviceType !== null && osType !== null;
 
   return (
     <div>
@@ -23,6 +25,37 @@ export default function Page() {
           title={"Step 1. 증상"}
           description={"어떤 고장인지 기사님께 전해드릴게요!"}
         />
+      </div>
+
+      <div className="mt-7 ml-6 mr-6">
+        <QuestionSentences
+          text="Q. 컴퓨터 종류는 무엇인가요?"
+          description="수리를 의뢰하고자 하는 기기의 종류를 알려주세요!"
+        />
+        <div className="mt-3 h-12">
+          <ChoiceButtons
+            buttonInfos={[
+              makeButtonInfo("데스크탑", divergeCallback(() => setDeviceType('desktop'), () => setDeviceType(null))),
+              makeButtonInfo("노트북", divergeCallback(() => setDeviceType('notebook'), () => setDeviceType(null)))
+            ]}
+          />
+        </div>
+      </div>
+
+      <div className="mt-7 ml-6 mr-6">
+        <QuestionSentences
+          text="Q. OS는 무엇인가요?"
+          description="운영체제가 뭔가요?"
+        />
+        <div className="mt-3 h-12">
+          <ChoiceButtons
+            buttonInfos={[
+              makeButtonInfo("윈도우", divergeCallback(() => setOsType('windows'), () => setOsType(null))),
+              makeButtonInfo("맥", divergeCallback(() => setOsType('mac'), () => setOsType(null))),
+              makeButtonInfo("모르겠어요", divergeCallback(() => setOsType('unknown'), () => setOsType(null))),
+            ]}
+          />
+        </div>
       </div>
 
       <div className="mt-7 ml-6 mr-6">
@@ -43,8 +76,8 @@ export default function Page() {
 
       <div className="mt-9 ml-6 mr-6">
         <QuestionSentences
-          text="Q. 윈도우 바탕화면까지 들어가지나요?"
-          description="전원버튼을 누르고 기다리면 윈도우 화면이 표시되나요?"
+          text="Q. 바탕화면까지 들어가지나요?"
+          description="전원버튼을 누르고 기다리면 바탕화면이 표시되나요?"
         />
         <div className="mt-3 h-12">
           <ChoiceButtons
@@ -57,11 +90,13 @@ export default function Page() {
         </div>
       </div>
 
+      <div className="h-8" />
+
       <Link
-        className={`fixed left-0 right-0 bottom-0 flex justify-center items-center rounded-xl ${ isFilled ? 'text-white' : 'text-black' } ${ isFilled ? 'bg-highlight' : 'bg-[#D9D9D9]' } text-lg font-bold h-14 mx-3 mb-3 shadow transition`}
+        className={`relative left-0 right-0 bottom-0 flex justify-center items-center rounded-xl ${ isFilled ? 'text-white' : 'text-black' } ${ isFilled ? 'bg-highlight' : 'bg-[#D9D9D9]' } text-lg font-bold h-14 mx-3 mb-3 shadow transition`}
         href={{
           pathname: `${isFilled ? '/reservation/step2' : ''}`,
-          query: {isPowered: isPowered, isBooted: isBooted}
+          query: {isPowered: isPowered, isBooted: isBooted, deviceType: deviceType, osType: osType}
         }}
       >
         작성 완료

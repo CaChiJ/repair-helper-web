@@ -32,8 +32,7 @@ export default async function Page({
           href={{
             pathname: "/reservation/step3",
             query: {
-              "isPowered": searchParams.isPowered,
-              "isBooted": searchParams.isBooted,
+              ...searchParams,
             }
           }}
         />
