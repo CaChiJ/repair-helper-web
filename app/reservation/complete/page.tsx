@@ -22,7 +22,9 @@ export default function Page({
     params.isAgreed !== undefined &&
     params.dateTime !== undefined &&
     params.isBooted !== undefined &&
-    params.isPowered !== undefined;
+    params.isPowered !== undefined &&
+    params.osType !== undefined && 
+    params.deviceType !== undefined;
 
   if (!isFilled) {
     return <div>잘못된 접근입니다.</div>;
@@ -39,6 +41,8 @@ export default function Page({
       reservation_date: params.dateTime!,
       is_booted: parseBooleanOrNull(params.isBooted!),
       is_powered: parseBooleanOrNull(params.isPowered!),
+      os_type: params.osType!,
+      device_type: params.requestType!,
     };
 
     (async () => {

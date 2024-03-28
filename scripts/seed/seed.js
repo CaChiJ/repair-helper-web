@@ -99,7 +99,9 @@ async function seedRepairRequest(client) {
                 reservation_date timestamp NOT NULL,
                 created_at timestamp NOT NULL DEFAULT NOW(),
                 is_booted boolean,
-                is_powered boolean
+                is_powered boolean,
+                os_type VARCHAR(255),
+                device_type VARCHAR(255)
             );
         `;
 
@@ -108,8 +110,8 @@ async function seedRepairRequest(client) {
     const insertedRepairRequests = await Promise.all(
       repairRequests.map(async (r) => {
         return client.sql`
-                    INSERT INTO repair_requests (id, name, phone, address, mechanic_id, is_on_site, is_agreed, reservation_date, is_booted, is_powered)
-                    VALUES (${r.id}, ${r.name}, ${r.phone}, ${r.address}, ${r.mechanic_id}, ${r.is_on_site}, ${r.is_agreed}, ${r.reservation_date}, ${r.is_booted}, ${r.is_powered})
+                    INSERT INTO repair_requests (id, name, phone, address, mechanic_id, is_on_site, is_agreed, reservation_date, is_booted, is_powered, os_type, device_type)
+                    VALUES (${r.id}, ${r.name}, ${r.phone}, ${r.address}, ${r.mechanic_id}, ${r.is_on_site}, ${r.is_agreed}, ${r.reservation_date}, ${r.is_booted}, ${r.is_powered}, ${r.os_type}, ${r.device_type})
                     ON CONFLICT (id) DO NOTHING;
                 `;
       })
@@ -172,7 +174,7 @@ async function main() {
   const client = await db.connect();
 
   // await seedUsers(client);
-  await seedMechanics(client);
+  // await seedMechanics(client);
   // await seedRepairRequest(client);
   // await seedBills(client);
 

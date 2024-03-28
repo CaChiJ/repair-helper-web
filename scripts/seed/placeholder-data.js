@@ -47,7 +47,9 @@ const repairRequests = [
         is_agreed: true,
         reservation_date: '2024-04-22 20:00:00',
         is_booted: true,
-        is_powered: true
+        is_powered: true,
+        os_type: "windows",
+        device_type: "desktop",
     }
 ]
 

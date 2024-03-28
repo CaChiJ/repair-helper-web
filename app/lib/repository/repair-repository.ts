@@ -14,7 +14,9 @@ export type RepairRequest = {
     is_agreed: boolean,
     reservation_date: string,
     is_booted: boolean | null,
-    is_powered: boolean | null
+    is_powered: boolean | null,
+    device_type: string,
+    os_type: string,
 }
 
 
@@ -27,5 +29,7 @@ export type RepairRequestData = {
     is_agreed: boolean,
     reservation_date: string,
     is_booted: boolean | null,
-    is_powered: boolean | null
+    is_powered: boolean | null,
+    device_type: string,
+    os_type: string,
 }
