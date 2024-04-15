@@ -42,7 +42,7 @@ export default function Page({
       <div className="mt-7 ml-6 mr-6">
         <QuestionSentences
           text="Q. 희망하는 수리 방식을 알려주세요"
-          description="출장비가 별도로 부과될 수 있음에 주의해주세요."
+          description="출장비가 별도로 부과될 수 있음에 유의해주세요."
         />
         <div className="mt-3 h-12">
           <ChoiceButtons
