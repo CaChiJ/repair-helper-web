@@ -2,19 +2,10 @@
 
 import Headline from "@/app/ui/headline/headline";
 import Link from "next/link";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react";
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  const [name, setName] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
-  const [address, setAddress] = useState<string>("");
-  const [isAgreed, setIsAgreed] = useState<boolean>(false);
-
-  const isFilled = name !== "" && phone !== "" && address !== "" && isAgreed;
+export default function Page() {
 
   return (
     <div>
@@ -29,7 +20,25 @@ export default function Page({
         />
       </div>
 
-      <div className="flex flex-col gap-5 w-full px-6">
+      <Suspense>
+        <InputForm />
+      </Suspense>
+    </div>
+  );
+}
+
+function InputForm() {
+  const searchParams = Object.fromEntries(useSearchParams());
+
+  const [name, setName] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+  const [isAgreed, setIsAgreed] = useState<boolean>(false);
+
+  const isFilled = name !== "" && phone !== "" && address !== "" && isAgreed;
+
+  return <div>
+    <div className="flex flex-col gap-5 w-full px-6">
         <div>
           <span className="flex flex-col font-medium text-sm mb-1 ml-1">
             이름
@@ -97,6 +106,5 @@ export default function Page({
       >
         작성 완료
       </Link>
-    </div>
-  );
+  </div>;
 }

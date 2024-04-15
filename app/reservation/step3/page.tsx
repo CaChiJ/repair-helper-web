@@ -3,29 +3,13 @@
 import Headline from "@/app/ui/headline/headline";
 import ChoiceButtons, { ButtonInfo } from "@/app/ui/questions/choice-buttons";
 import QuestionSentences from "@/app/ui/questions/question-sentences";
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Calendar } from "@/components/ui/calendar";
 import Link from "next/link";
 import TimePicker from "@/app/ui/time-picker/time-picker";
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  const [isOnSite, setIsOnSite] = useState<null | boolean>(null);
-  const [date, setDate] = useState<undefined | Date>();
-  const [time, setTime] = useState<string>("10:00");
-
-  const isFilled = isOnSite !== null && date !== undefined;
-  let dateTime: Date = new Date();
-  
-  if (isFilled) {
-    dateTime = new Date(date)
-    dateTime.setHours(parseInt(time.split(":")[0]));
-    dateTime.setMinutes(parseInt(time.split(":")[1]));
-  }
-
+export default function Page() {
   return (
     <div>
       <div className="w-full h-1 bg-[#D9D9D9]">
@@ -39,6 +23,31 @@ export default function Page({
         />
       </div>
 
+      <Suspense>
+        <InputForm />
+      </Suspense>
+    </div>
+  );
+}
+
+function InputForm(): JSX.Element {
+  const searchParams = Object.fromEntries(useSearchParams())
+
+  const [isOnSite, setIsOnSite] = useState<null | boolean>(null);
+  const [date, setDate] = useState<undefined | Date>();
+  const [time, setTime] = useState<string>("10:00");
+
+  const isFilled = isOnSite !== null && date !== undefined;
+  let dateTime: Date = new Date();
+
+  if (isFilled) {
+    dateTime = new Date(date);
+    dateTime.setHours(parseInt(time.split(":")[0]));
+    dateTime.setMinutes(parseInt(time.split(":")[1]));
+  }
+
+  return (
+    <div>
       <div className="mt-7 ml-6 mr-6">
         <QuestionSentences
           text="Q. 희망하는 수리 방식을 알려주세요"
@@ -82,8 +91,8 @@ export default function Page({
 
         <div className="flex justify-center mt-3">
           <TimePicker
-            onChange={(hour:number, minute:number) => {
-              setTime(`${hour}:${minute}`)
+            onChange={(hour: number, minute: number) => {
+              setTime(`${hour}:${minute}`);
             }}
             defaultHour={parseInt(time.split(":")[0])}
             defaultMinute={parseInt(time.split(":")[1])}
@@ -94,14 +103,20 @@ export default function Page({
       <div className="h-8" />
 
       <Link
-        className={`${isFilled ? "" : "pointer-events-none"} relative left-0 right-0 bottom-0 flex justify-center items-center rounded-xl ${isFilled ? "text-white" : "text-black"} ${isFilled ? "bg-highlight" : "bg-[#D9D9D9]"} text-lg font-bold h-14 mx-3 mb-3 shadow transition`}
+        className={`${
+          isFilled ? "" : "pointer-events-none"
+        } relative left-0 right-0 bottom-0 flex justify-center items-center rounded-xl ${
+          isFilled ? "text-white" : "text-black"
+        } ${
+          isFilled ? "bg-highlight" : "bg-[#D9D9D9]"
+        } text-lg font-bold h-14 mx-3 mb-3 shadow transition`}
         href={{
           pathname: "/reservation/step4",
           query: {
             ...searchParams,
-            "isOnSite": isOnSite,
-            "dateTime": dateTime?.toISOString(),
-          }
+            isOnSite: isOnSite,
+            dateTime: dateTime?.toISOString(),
+          },
         }}
         aria-disabled={!isFilled}
         tabIndex={isFilled ? undefined : -1}
